@@ -4,8 +4,9 @@ from matplotlib.colors import ListedColormap
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.linear_model import RANSACRegressor
 from sklearn.metrics import accuracy_score
+#new imports
+from sklearn.linear_model import RANSACRegressor
 from sklearn.linear_model import TheilSenRegressor
 from sklearn.linear_model import LinearRegression 
 from sklearn.linear_model import HuberRegressor
@@ -26,7 +27,7 @@ def Classify():
     ydata = train['Survived']
 ​
     X_train, X_test, y_train, y_true = train_test_split(Xdata, ydata, test_size=0.1, random_state=42, stratify=ydata)
-​
+#New classifiers
     Class1 = RANSACRegressor(random_state=42)
     Class1.fit(X_train, y_train)
     Class1_predictions = Class1.predict(X_test)
@@ -48,7 +49,7 @@ def Classify():
     Class4_accuracy = accuracy_score(y_true, Class4_predictions, normalize=True, sample_weight=None)
 
 ​
-​
+#Print different accuracies
     print("First Accuracy: ", Class1_accuracy)
     print("Second Accuracy: ", Class2_accuracy)
     print("Third Accuracy: ", Class3_accuracy)
@@ -94,6 +95,7 @@ def simple_plot(data, class0=0, class1=1):
 ​
 ​
 def preprocess(dataframe):
+    #Dropping columns but removing age from the drop
     dataframe = dataframe.drop(columns=['Cabin', 'Name', 'Ticket'])
     sex_mapping = {label: idx for idx, label in enumerate(np.unique(dataframe['Sex']))}
     dataframe['Sex'] = dataframe['Sex'].map(sex_mapping)
